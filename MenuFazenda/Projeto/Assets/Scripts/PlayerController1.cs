@@ -1,15 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController1 : MonoBehaviour
 {
+    public GameSettings Gamesettings;
+    
     public float speed = 20f;
     public float xRange = 15f;
     public GameObject projectilePrefab;
     private float horizontalInput;
-    private bool TimeGhost = false;
+
+    public bool CtrlVerdadeiro = false;
 
     public InputActionAsset InputActions;
     private InputAction moveAction;
@@ -31,6 +35,7 @@ public class PlayerController1 : MonoBehaviour
     
     private void Awake()
     {
+
         moveAction = InputSystem.actions.FindAction("Move");
         fireAction = InputSystem.actions.FindAction("Jump");
         pausaActionPlayer = InputSystem.actions.FindAction("Pausa");
@@ -59,24 +64,15 @@ public class PlayerController1 : MonoBehaviour
 
         if (playerFantasma.WasPressedThisFrame())
         {
-
-             TimeGhost = true;  
-             this.gameObject.SetActive(false);
-             StartCoroutine("WaitAndPrint");
             
+            CtrlVerdadeiro = true;
+            Gamesettings.Parametro(CtrlVerdadeiro);
         }
         PauseGame();
         
        
 }
- IEnumerator WaitAndPrint()
-    {
-        
-        yield return new WaitForSeconds (2);
-       print("fds");
-    }
-     
-      
+ 
   
 void PauseGame()
     {
