@@ -7,9 +7,14 @@ public class MenuOptions : MonoBehaviour
     {
         SceneManager.LoadScene("Level1");
     }
+    public void GoToMenu()
+    {
+        SceneManager.LoadScene("Menu");
+    }
    public void Quit()
     {
         Application.Quit();
+
                 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
         #endif

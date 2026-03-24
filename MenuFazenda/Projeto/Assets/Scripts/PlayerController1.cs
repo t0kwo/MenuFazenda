@@ -80,13 +80,15 @@ void PauseGame()
         {
             painel.SetActive(true);
             InputActions.FindActionMap("Player").Disable(); 
-            InputActions.FindActionMap("UI").Enable(); 
+            InputActions.FindActionMap("UI").Enable();
+            Time.timeScale = 0f;
         }
         if (pausaActionUI.WasPressedThisFrame())
         {
             painel.SetActive(false);
             InputActions.FindActionMap("Player").Enable(); 
             InputActions.FindActionMap("UI").Disable(); 
+            Time.timeScale = 1f;
         }
     }
     }
