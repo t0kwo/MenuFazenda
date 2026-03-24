@@ -33,7 +33,6 @@ public GameObject player;
         Debug.Log("Objeto volta");
        player.gameObject.SetActive(true);
        Ghostverdadeiro =false;
-
     }
 
        public void Parametro(bool Valor)

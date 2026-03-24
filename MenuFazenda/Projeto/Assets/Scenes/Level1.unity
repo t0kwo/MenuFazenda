@@ -536,6 +536,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &733140154
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 733140156}
+  - component: {fileID: 733140155}
+  m_Layer: 0
+  m_Name: WorldSettings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &733140155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 733140154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88bf698382a666a4fb01b081cc9b4c01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  player: {fileID: 981019821}
+--- !u!4 &733140156
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 733140154}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 13.22488, y: -0, z: 2.01787}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &823200864
 GameObject:
   m_ObjectHideFlags: 0
@@ -750,6 +795,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 112a0304-1f9f-49b7-acf0-c6dfbfa8607b
     m_ActionName: 'UI/Despausa[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d72ebd9d-b940-45c8-b90b-ed54533ed75a
+    m_ActionName: 'Player/Ghost[/Keyboard/ctrl]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 98cfd26a-c1fa-499a-a86f-11a39221949c
+    m_ActionName: New action map/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: 
@@ -767,9 +820,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acdace1bd9f5ff948915c26314879880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController1
+  Gamesettings: {fileID: 733140155}
   speed: 20
   xRange: 15
   projectilePrefab: {fileID: 3368550998252044939, guid: 3e72a3cfb85b1344ca8ceae8fa56d1d4, type: 3}
+  CtrlVerdadeiro: 0
   InputActions: {fileID: -944628639613478452, guid: c785c3b9595cb564fb233aa5249ed4b1, type: 3}
   painel: {fileID: 823200864}
 --- !u!1 &992285705
@@ -1561,3 +1616,4 @@ SceneRoots:
   - {fileID: 695279247}
   - {fileID: 2121248673}
   - {fileID: 1368597692}
+  - {fileID: 733140156}
