@@ -9,10 +9,11 @@ public class DestroyOutOfBounds : MonoBehaviour
 {
     private float topBound = 30f;
     private float lowerBound = -10f;
+    private PlayerController1 player;
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GameObject.FindWithTag("Player").GetComponent<PlayerController1>();
     }
 
     // Update is called once per frame
@@ -31,7 +32,7 @@ public class DestroyOutOfBounds : MonoBehaviour
 
     public void Exit()
     {
-        Debug.Log("Game Over!");
+        player.AdicionarPontos(-1);
         /*
 #if UNITY_EDITOR
         EditorApplication.ExitPlaymode();

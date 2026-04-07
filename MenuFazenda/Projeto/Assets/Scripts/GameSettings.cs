@@ -12,10 +12,6 @@ private bool Ghostverdadeiro = false;
 
 public GameObject player;
 
-    void Start()
-    {
- 
-    }
 
 
     void Update()
