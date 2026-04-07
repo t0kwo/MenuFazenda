@@ -16,6 +16,7 @@ public class PlayerController1 : MonoBehaviour
     public int vida = 3;
     public TMP_Text textoVida;
     public GameObject painelGameOver;
+    public GameObject buttonSair;
     public int pontos = 0;
     public TMP_Text textoPontos;
     public bool CtrlVerdadeiro = false;
@@ -136,7 +137,9 @@ void AtualizarHUDPontos()
 void GameOver()
     {
          painelGameOver.SetActive(true);
+         buttonSair.SetActive(true);
          Time.timeScale = 0f;
+         
     }
 
     }
