@@ -16,7 +16,8 @@ public class PlayerController1 : MonoBehaviour
     public int vida = 3;
     public TMP_Text textoVida;
     public GameObject painelGameOver;
-
+    public int pontos = 0;
+    public TMP_Text textoPontos;
     public bool CtrlVerdadeiro = false;
 
     public InputActionAsset InputActions;
@@ -48,7 +49,8 @@ public class PlayerController1 : MonoBehaviour
     }
     void Start()
     {
-        AtualizarHUD();
+        AtualizarHUDVida();
+        AtualizarHUDPontos();
         painelGameOver.SetActive(false);
     }
     void Update()
@@ -109,17 +111,27 @@ public void PerderVida()
             vida = 0;
         }
 
-        AtualizarHUD();
+        AtualizarHUDVida();
 
         if (vida == 0)
         {
             GameOver();
         }
     }
+public void AdicionarPontos(int quantidade)
+    {
+        pontos += quantidade;
+        AtualizarHUDPontos();
+    }
 
-void AtualizarHUD()
+void AtualizarHUDVida()
     {
         textoVida.text = "Vidas: " + vida;
+    }
+
+void AtualizarHUDPontos()
+    {
+        textoPontos.text = "Pontos: " + pontos;
     }
 void GameOver()
     {

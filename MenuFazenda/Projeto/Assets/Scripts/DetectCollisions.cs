@@ -4,23 +4,21 @@ using UnityEngine;
 
 public class DetectCollisions : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private PlayerController1 player;
+
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        player = GameObject.FindWithTag("Player").GetComponent<PlayerController1>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Animals")){
-        Destroy(gameObject);
-        Destroy(other.gameObject);
+        if (other.CompareTag("Animals"))
+        {
+            player.AdicionarPontos(1);
+
+            Destroy(gameObject);
+            Destroy(other.gameObject);
         }
     }
 }
