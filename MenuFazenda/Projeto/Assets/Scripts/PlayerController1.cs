@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class PlayerController1 : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class PlayerController1 : MonoBehaviour
     public float xRange = 15f;
     public GameObject projectilePrefab;
     private float horizontalInput;
+    public int vida = 3;
+    public TMP_Text textoVida;
+    public GameObject painelGameOver;
 
     public bool CtrlVerdadeiro = false;
 
@@ -41,6 +45,11 @@ public class PlayerController1 : MonoBehaviour
         pausaActionPlayer = InputSystem.actions.FindAction("Pausa");
         playerFantasma = InputSystem.actions.FindAction("Ghost");
         pausaActionUI = InputSystem.actions.FindAction("Despausa");
+    }
+    void Start()
+    {
+        AtualizarHUD();
+        painelGameOver.SetActive(false);
     }
     void Update()
     {
@@ -91,4 +100,31 @@ void PauseGame()
             Time.timeScale = 1f;
         }
     }
+public void PerderVida()
+    {
+        vida--;
+
+        if (vida < 0)
+        {
+            vida = 0;
+        }
+
+        AtualizarHUD();
+
+        if (vida == 0)
+        {
+            GameOver();
+        }
+    }
+
+void AtualizarHUD()
+    {
+        textoVida.text = "Vidas: " + vida;
+    }
+void GameOver()
+    {
+         painelGameOver.SetActive(true);
+         Time.timeScale = 0f;
+    }
+
     }
