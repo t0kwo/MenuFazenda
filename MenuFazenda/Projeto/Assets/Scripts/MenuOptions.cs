@@ -12,6 +12,7 @@ public class MenuOptions : MonoBehaviour
     }
     public void GoToMenu()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("Menu");
     }
    public void AbrirQuit()
