@@ -82,7 +82,7 @@ public class PlayerController1 : MonoBehaviour
             tripleShootCooldown -= Time.deltaTime;
 
         // Triple-shot com Shift (frente + duas diagonais)
-        if (especialAction.WasPressedThisFrame && tripleShootCooldown <= 0f)
+        if (especialAction.WasPressedThisFrame() && tripleShootCooldown <= 0f)
         {
             Quaternion baseRot = projectilePrefab.transform.rotation;
             Instantiate(projectilePrefab, transform.position, baseRot);
