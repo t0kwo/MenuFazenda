@@ -11,7 +11,7 @@ public class PlayerController1 : MonoBehaviour
     public GameSettings Gamesettings;
     
     public float speed = 20f;
-    public float xRange = 15f;
+    private float xRange = 20f;
     public GameObject projectilePrefab;
     private float horizontalInput;
     public int vida = 3;
