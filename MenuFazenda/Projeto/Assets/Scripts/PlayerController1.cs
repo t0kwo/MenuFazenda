@@ -4,6 +4,7 @@ using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using System;
 
 public class PlayerController1 : MonoBehaviour
 {
@@ -31,6 +32,7 @@ public class PlayerController1 : MonoBehaviour
     private InputAction playerFantasma;
     private InputAction pausaActionUI;
     private InputAction especialAction;
+    private float tempo = 1f;
     public GameObject painel;
     public GameObject botoesHUD;
 
@@ -81,15 +83,11 @@ public class PlayerController1 : MonoBehaviour
 
         }
 
-        // Triple-shot com Shift (frente + duas diagonais) - requer ultimate completo
+    
         if (especialAction.WasPressedThisFrame() && ultimateCargas >= ultimateMax)
         {
-            Quaternion baseRot = projectilePrefab.transform.rotation;
-            Instantiate(projectilePrefab, transform.position, baseRot);
-            Instantiate(projectilePrefab, transform.position, Quaternion.Euler(0, 45, 0) * baseRot);
-            Instantiate(projectilePrefab, transform.position, Quaternion.Euler(0, -45, 0) * baseRot);
-            ultimateCargas = 0;
-            AtualizarHUDUltimate();
+            
+            StartCoroutine("SpecialCorroutine");
         }
 
         if (playerFantasma.WasPressedThisFrame())
@@ -103,6 +101,31 @@ public class PlayerController1 : MonoBehaviour
        
 }
  
+ void Special()
+    {
+            Quaternion baseRot = projectilePrefab.transform.rotation;
+            Instantiate(projectilePrefab, transform.position, baseRot);
+            Instantiate(projectilePrefab, transform.position, Quaternion.Euler(0, 45, 0) * baseRot);
+            Instantiate(projectilePrefab, transform.position, Quaternion.Euler(0, -45, 0) * baseRot);
+            Instantiate(projectilePrefab, transform.position, Quaternion.Euler(0, -23, 0) * baseRot);
+            Instantiate(projectilePrefab, transform.position, Quaternion.Euler(0, 23, 0) * baseRot);
+            AtualizarHUDUltimate();
+    }
+    IEnumerator SpecialCorroutine()
+    {
+        
+    Special();
+     yield return new WaitForSeconds (tempo);
+    Special();
+     yield return new WaitForSeconds (tempo);
+    Special();
+     yield return new WaitForSeconds (tempo);
+    Special();
+
+
+       ultimateCargas = 0;
+    }
+
   
 void PauseGame()
     {
@@ -146,6 +169,10 @@ public void AdicionarPontos(int quantidade)
         if (ultimateCargas < ultimateMax)
         {
             ultimateCargas += quantidade;
+            if(ultimateCargas <= 0)
+            {
+                ultimateCargas = 0;
+            }
             if (ultimateCargas > ultimateMax) ultimateCargas = ultimateMax;
             AtualizarHUDUltimate();
         }
@@ -159,6 +186,10 @@ void AtualizarHUDVida()
 void AtualizarHUDPontos()
     {
         textoPontos.text = "Pontos: " + pontos;
+        if(pontos <= -5)
+        {
+            GameOver();
+        }
     }
 
 void AtualizarHUDUltimate()
@@ -170,6 +201,7 @@ void GameOver()
          painelGameOver.SetActive(true);
          buttonSair.SetActive(true);
          Time.timeScale = 0f;
+         botoesHUD.SetActive(false);
          
     }
 
