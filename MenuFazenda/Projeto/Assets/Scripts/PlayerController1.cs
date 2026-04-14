@@ -28,6 +28,7 @@ public class PlayerController1 : MonoBehaviour
     private InputAction pausaActionPlayer;
     private InputAction playerFantasma;
     private InputAction pausaActionUI;
+    private InputAction especialAction;
     public GameObject painel;
 
     // Update is called once per frame  
@@ -48,6 +49,7 @@ public class PlayerController1 : MonoBehaviour
         pausaActionPlayer = InputSystem.actions.FindAction("Pausa");
         playerFantasma = InputSystem.actions.FindAction("Ghost");
         pausaActionUI = InputSystem.actions.FindAction("Despausa");
+        especialAction = InputSystem.actions.FindAction("Especial");
     }
     void Start()
     {
@@ -80,7 +82,7 @@ public class PlayerController1 : MonoBehaviour
             tripleShootCooldown -= Time.deltaTime;
 
         // Triple-shot com Shift (frente + duas diagonais)
-        if (Keyboard.current.leftShiftKey.wasPressedThisFrame && tripleShootCooldown <= 0f)
+        if (especialAction.WasPressedThisFrame && tripleShootCooldown <= 0f)
         {
             Quaternion baseRot = projectilePrefab.transform.rotation;
             Instantiate(projectilePrefab, transform.position, baseRot);
