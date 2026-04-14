@@ -20,6 +20,7 @@ public class PlayerController1 : MonoBehaviour
     public int pontos = 0;
     public TMP_Text textoPontos;
     public bool CtrlVerdadeiro = false;
+    private float tripleShootCooldown = 0f;
 
     public InputActionAsset InputActions;
     private InputAction moveAction;
@@ -72,6 +73,20 @@ public class PlayerController1 : MonoBehaviour
         {
             Instantiate(projectilePrefab, transform.position, projectilePrefab.transform.rotation);
 
+        }
+
+        // Cooldown do triple-shot
+        if (tripleShootCooldown > 0f)
+            tripleShootCooldown -= Time.deltaTime;
+
+        // Triple-shot com Shift (frente + duas diagonais)
+        if (Keyboard.current.leftShiftKey.wasPressedThisFrame && tripleShootCooldown <= 0f)
+        {
+            Quaternion baseRot = projectilePrefab.transform.rotation;
+            Instantiate(projectilePrefab, transform.position, baseRot);
+            Instantiate(projectilePrefab, transform.position, Quaternion.Euler(0, 45, 0) * baseRot);
+            Instantiate(projectilePrefab, transform.position, Quaternion.Euler(0, -45, 0) * baseRot);
+            tripleShootCooldown = 10f;
         }
 
         if (playerFantasma.WasPressedThisFrame())
