@@ -20,7 +20,9 @@ public class PlayerController1 : MonoBehaviour
     public int pontos = 0;
     public TMP_Text textoPontos;
     public bool CtrlVerdadeiro = false;
-    private float tripleShootCooldown = 0f;
+    private int ultimateCargas = 0;
+    private const int ultimateMax = 10;
+    public TMP_Text textoUltimate;
 
     public InputActionAsset InputActions;
     private InputAction moveAction;
@@ -30,6 +32,7 @@ public class PlayerController1 : MonoBehaviour
     private InputAction pausaActionUI;
     private InputAction especialAction;
     public GameObject painel;
+    public GameObject botoesHUD;
 
     // Update is called once per frame  
     private void OnEnable()
@@ -55,6 +58,7 @@ public class PlayerController1 : MonoBehaviour
     {
         AtualizarHUDVida();
         AtualizarHUDPontos();
+        AtualizarHUDUltimate();
         painelGameOver.SetActive(false);
     }
     void Update()
@@ -77,18 +81,15 @@ public class PlayerController1 : MonoBehaviour
 
         }
 
-        // Cooldown do triple-shot
-        if (tripleShootCooldown > 0f)
-            tripleShootCooldown -= Time.deltaTime;
-
-        // Triple-shot com Shift (frente + duas diagonais)
-        if (especialAction.WasPressedThisFrame() && tripleShootCooldown <= 0f)
+        // Triple-shot com Shift (frente + duas diagonais) - requer ultimate completo
+        if (especialAction.WasPressedThisFrame() && ultimateCargas >= ultimateMax)
         {
             Quaternion baseRot = projectilePrefab.transform.rotation;
             Instantiate(projectilePrefab, transform.position, baseRot);
             Instantiate(projectilePrefab, transform.position, Quaternion.Euler(0, 45, 0) * baseRot);
             Instantiate(projectilePrefab, transform.position, Quaternion.Euler(0, -45, 0) * baseRot);
-            tripleShootCooldown = 10f;
+            ultimateCargas = 0;
+            AtualizarHUDUltimate();
         }
 
         if (playerFantasma.WasPressedThisFrame())
@@ -108,15 +109,17 @@ void PauseGame()
          if (pausaActionPlayer.WasPressedThisFrame())
         {
             painel.SetActive(true);
-            InputActions.FindActionMap("Player").Disable(); 
+            botoesHUD.SetActive(false);
+            InputActions.FindActionMap("Player").Disable();
             InputActions.FindActionMap("UI").Enable();
             Time.timeScale = 0f;
         }
         if (pausaActionUI.WasPressedThisFrame())
         {
             painel.SetActive(false);
-            InputActions.FindActionMap("Player").Enable(); 
-            InputActions.FindActionMap("UI").Disable(); 
+            botoesHUD.SetActive(true);
+            InputActions.FindActionMap("Player").Enable();
+            InputActions.FindActionMap("UI").Disable();
             Time.timeScale = 1f;
         }
     }
@@ -140,6 +143,12 @@ public void AdicionarPontos(int quantidade)
     {
         pontos += quantidade;
         AtualizarHUDPontos();
+        if (ultimateCargas < ultimateMax)
+        {
+            ultimateCargas += quantidade;
+            if (ultimateCargas > ultimateMax) ultimateCargas = ultimateMax;
+            AtualizarHUDUltimate();
+        }
     }
 
 void AtualizarHUDVida()
@@ -150,6 +159,11 @@ void AtualizarHUDVida()
 void AtualizarHUDPontos()
     {
         textoPontos.text = "Pontos: " + pontos;
+    }
+
+void AtualizarHUDUltimate()
+    {
+        textoUltimate.text = "Ultimate " + ultimateCargas + "/" + ultimateMax;
     }
 void GameOver()
     {
